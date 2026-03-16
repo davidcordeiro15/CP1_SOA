@@ -1,7 +1,7 @@
 package org.example.service;
 
-import jakarta.jws.WebMethod;
-import jakarta.jws.WebService;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
 import org.example.Dao.ClienteDao;
 import org.example.model.Cliente;
 
