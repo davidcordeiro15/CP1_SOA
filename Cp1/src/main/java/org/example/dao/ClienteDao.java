@@ -1,4 +1,4 @@
-package org.example.Dao;
+package org.example.dao;
 
 import org.example.model.Cliente;
 
@@ -8,8 +8,8 @@ import java.util.List;
 public class ClienteDao {
     private List<Cliente> clientes = new ArrayList<>();
 
-    public void adicionaCliente(String nome, String email, String cpf) {
-        Cliente client = new Cliente(email, cpf, nome);
+    public void adicionaCliente(String nome, String email, String cpf, String end) {
+        Cliente client = new Cliente(email, cpf, nome, end);
         clientes.add(client);
         consultaCliente(email);
 
@@ -36,12 +36,13 @@ public class ClienteDao {
 
     }
 
-    public void alteraDadosCliente(String nome, String email, String cpf) {
+    public void alteraDadosCliente(String nome, String email, String cpf, String end) {
         Cliente client = consultaClienteCpf(cpf);
 
         if (client != null) {
             client.setNome(nome);
             client.setEmail(email);
+            client.setEnd(end);
         }
     }
 }

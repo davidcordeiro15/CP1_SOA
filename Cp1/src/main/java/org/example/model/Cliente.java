@@ -9,12 +9,22 @@ public class Cliente {
     private String nome;
     private String email;
     private String cpf;
+    private String end; // Endereço do cliente
 
-    public Cliente(String email, String cpf, String nome) {
+    public String getEnd() {
+        return end;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
+    }
+
+    public Cliente(String email, String cpf, String nome, String end) {
         this.id = UUID.randomUUID().toString();
         this.email = email;
         this.cpf = cpf;
         this.nome = nome;
+        this.end = end;
     }
 
     public String getCpf() {

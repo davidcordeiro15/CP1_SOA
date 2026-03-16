@@ -3,7 +3,7 @@ package org.example.service;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
-import org.example.Dao.ClienteDao;
+import org.example.dao.ClienteDao;
 import org.example.model.Cliente;
 
 @WebService
@@ -15,14 +15,15 @@ public class ClienteService {
     public String criarCliente(
             @WebParam(name = "nome") String nome,
             @WebParam(name = "email") String email,
-            @WebParam(name = "cpf") String cpf
+            @WebParam(name = "cpf") String cpf,
+            @WebParam(name = "endereco") String end
     ) {
         try {
-            if (nome == null || email == null || cpf == null ||
-                    nome.isBlank() || email.isBlank() || cpf.isBlank()) {
+            if (nome == null || email == null || cpf == null || end == null ||
+                    nome.isBlank() || email.isBlank() || cpf.isBlank() || end.isBlank()) {
                 return "Coloque todos os valores para criar um cliente!";
             }
-            clienteDao.adicionaCliente(nome, email, cpf);
+            clienteDao.adicionaCliente(nome, email, cpf, end);
 
             // Validamos se o cliente foi criado com sucesso
             Cliente client = clienteDao.consultaCliente(email);
@@ -83,13 +84,16 @@ public class ClienteService {
 
     // Recebe todos os parâmetros para modificar e retorna mensagem de sucesso/erro
     @WebMethod
-    public String alterarDadosCliente(@WebParam(name = "nome") String nome, @WebParam(name = "email") String email, @WebParam(name = "cpf") String cpf) {
+    public String alterarDadosCliente(@WebParam(name = "nome") String nome,
+                                      @WebParam(name = "email") String email,
+                                      @WebParam(name = "cpf") String cpf,
+                                      @WebParam(name = "endereco") String end) {
 
         try {
             if (nome.isBlank() || email.isBlank() || cpf.isBlank()) {
                 return "Coloque todos os valores para alterar um cliente!";
             }
-            clienteDao.alteraDadosCliente(nome, email, cpf);
+
 
             // Validamos se o cliente foi encontrado com sucesso
             Cliente client = clienteDao.consultaClienteCpf(cpf);
@@ -98,7 +102,7 @@ public class ClienteService {
                 return "O cliente não foi encontrado, informe um cliente cadastrado!";
 
             }
-            clienteDao.alteraDadosCliente(nome, email, cpf);
+            clienteDao.alteraDadosCliente(nome, email, cpf, end);
 
             Cliente clientAlt = clienteDao.consultaCliente(email);
             if (clientAlt.getEmail().equals(email)) {
