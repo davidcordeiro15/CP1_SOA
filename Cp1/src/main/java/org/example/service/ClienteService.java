@@ -1,6 +1,7 @@
 package org.example.service;
 
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import org.example.Dao.ClienteDao;
 import org.example.model.Cliente;
@@ -11,9 +12,14 @@ public class ClienteService {
     private ClienteDao clienteDao = new ClienteDao();
     // Cria um cliente recebendo esses parâmetros e retorna mensagem de sucesso/erro
     @WebMethod
-    public String criarCliente(String nome, String email, String cpf) {
+    public String criarCliente(
+            @WebParam(name = "nome") String nome,
+            @WebParam(name = "email") String email,
+            @WebParam(name = "cpf") String cpf
+    ) {
         try {
-            if (nome.isBlank() || email.isBlank() || cpf.isBlank()) {
+            if (nome == null || email == null || cpf == null ||
+                    nome.isBlank() || email.isBlank() || cpf.isBlank()) {
                 return "Coloque todos os valores para criar um cliente!";
             }
             clienteDao.adicionaCliente(nome, email, cpf);
@@ -35,7 +41,7 @@ public class ClienteService {
 
     // Recebe email do cliente (uma maneira de identificar ele facilmente sem um banco) e retornar se existe ou não
     @WebMethod
-    public String consultaCliente(String email) {
+    public String consultaCliente(@WebParam(name = "email") String email) {
         try {
             if (email.isBlank()) {
                 return "Coloque o email para consultar um cliente!";
@@ -55,7 +61,7 @@ public class ClienteService {
 
     // Recebe email do cliente para excluí-lo e retorna mensagem de sucesso/erro
     @WebMethod
-    public String excluirCliente(String email) {
+    public String excluirCliente(@WebParam(name = "email") String email) {
         try {
             if (email.isBlank()) {
                 return "Coloque o email para excluir um cliente!";
@@ -77,7 +83,7 @@ public class ClienteService {
 
     // Recebe todos os parâmetros para modificar e retorna mensagem de sucesso/erro
     @WebMethod
-    public String alterarDadosCliente(String nome, String email, String cpf) {
+    public String alterarDadosCliente(@WebParam(name = "nome") String nome, @WebParam(name = "email") String email, @WebParam(name = "cpf") String cpf) {
 
         try {
             if (nome.isBlank() || email.isBlank() || cpf.isBlank()) {
