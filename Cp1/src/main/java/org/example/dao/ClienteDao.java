@@ -8,8 +8,8 @@ import java.util.List;
 public class ClienteDao {
     private List<Cliente> clientes = new ArrayList<>();
 
-    public void adicionaCliente(String nome, String email, String cpf, String end) {
-        Cliente client = new Cliente(email, cpf, nome, end);
+    public void adicionaCliente(String nome, String email, String cpf) {
+        Cliente client = new Cliente(email, cpf, nome);
         clientes.add(client);
         consultaCliente(email);
 
@@ -35,13 +35,13 @@ public class ClienteDao {
 
     }
 
-    public void alteraDadosCliente(String nome, String email, String cpf, String end) {
+    public void alteraDadosCliente(String nome, String email, String cpf) {
         Cliente client = consultaClienteCpf(cpf);
 
         if (client != null) {
             client.setNome(nome);
             client.setEmail(email);
-            client.setEnd(end);
+
         }
     }
 }

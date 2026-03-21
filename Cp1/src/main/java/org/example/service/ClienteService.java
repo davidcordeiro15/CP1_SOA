@@ -15,15 +15,14 @@ public class ClienteService {
     public String criarCliente(
             @WebParam(name = "nome") String nome,
             @WebParam(name = "email") String email,
-            @WebParam(name = "cpf") String cpf,
-            @WebParam(name = "endereco") String end
+            @WebParam(name = "cpf") String cpf
     ) {
         try {
-            if (nome == null || email == null || cpf == null || end == null ||
-                    nome.isBlank() || email.isBlank() || cpf.isBlank() || end.isBlank()) {
+            if (nome == null || email == null || cpf == null ||
+                    nome.isBlank() || email.isBlank() || cpf.isBlank()) {
                 return "Coloque todos os valores para criar um cliente!";
             }
-            clienteDao.adicionaCliente(nome, email, cpf, end);
+            clienteDao.adicionaCliente(nome, email, cpf);
 
             // Validamos se o cliente foi criado com sucesso
             Cliente client = clienteDao.consultaCliente(email);
@@ -86,8 +85,7 @@ public class ClienteService {
     @WebMethod
     public String alterarDadosCliente(@WebParam(name = "nome") String nome,
                                       @WebParam(name = "email") String email,
-                                      @WebParam(name = "cpf") String cpf,
-                                      @WebParam(name = "endereco") String end) {
+                                      @WebParam(name = "cpf") String cpf) {
 
         try {
             if (nome.isBlank() || email.isBlank() || cpf.isBlank()) {
@@ -102,7 +100,7 @@ public class ClienteService {
                 return "O cliente não foi encontrado, informe um cliente cadastrado!";
 
             }
-            clienteDao.alteraDadosCliente(nome, email, cpf, end);
+            clienteDao.alteraDadosCliente(nome, email, cpf);
 
             Cliente clientAlt = clienteDao.consultaCliente(email);
             if (clientAlt.getEmail().equals(email)) {
