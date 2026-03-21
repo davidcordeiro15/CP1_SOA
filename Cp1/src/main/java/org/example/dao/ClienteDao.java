@@ -31,7 +31,6 @@ public class ClienteDao {
     public void excluiCliente(String email) {
         Cliente client = consultaCliente(email);
 
-
         clientes.remove(client);
 
     }
